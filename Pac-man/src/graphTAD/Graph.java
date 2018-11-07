@@ -26,15 +26,19 @@ public class Graph<K extends Comparable<K>, V> {
 	// Nodes
 	private Hashtable<K, V> nodes;
 	// type of graph
-	private boolean directional;
+	private boolean directed;
 	// representation
 	private int representation;
 
-	public Graph(boolean directional, int representation) {
+	public Graph(boolean directed, int representation) {
 		adjacencyArray = new Hashtable<>();
 		adjacencyList = new Hashtable<>();
 		nodes = new Hashtable<>();
-		this.directional = directional;
+		this.directed = directed;
+	}
+
+	public void setDirectional(boolean directed) {
+		this.directed = directed;
 	}
 
 	public void addNode(K key,V value) {
@@ -71,7 +75,7 @@ public class Graph<K extends Comparable<K>, V> {
 		}
 		Integer adjacents = adjacencyArray.get(key1).get(key2) != null? adjacencyArray.get(key1).get(key2) + 1 : 0;
 		adjacencyArray.get(key1).put(key2,  adjacents);
-		if (!directional) {
+		if (!directed) {
 			if (adjacencyArray.get(key2) == null) {
 				adjacencyArray.put(key2, new Hashtable<K,Integer>());
 			}
@@ -89,7 +93,7 @@ public class Graph<K extends Comparable<K>, V> {
 		}
 		adjacencyList.get(key1).add(key2);
 		
-		if (!directional) {
+		if (!directed) {
 			if(adjacencyList.get(key2) == null) {
 				adjacencyList.put(key2, new ArrayList<K>());
 			}
@@ -137,6 +141,14 @@ public class Graph<K extends Comparable<K>, V> {
             }
         }
 		return levels;
+	}
+	
+	public boolean isConnected() {
+		boolean connected = false;
+		Hashtable<K, Integer> levels = BFS(nodes.keys().nextElement());
+		
+		
+		return connected;
 	}
 
 }
