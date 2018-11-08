@@ -30,6 +30,11 @@ public class Graph<K extends Comparable<K>, V> {
 	// representation
 	private int representation;
 
+	
+	//---------------------------//
+	//--------Constructor--------//
+	//---------------------------//
+	
 	public Graph(boolean directed, int representation) {
 		adjacencyArray = new Hashtable<>();
 		adjacencyList = new Hashtable<>();
@@ -37,15 +42,25 @@ public class Graph<K extends Comparable<K>, V> {
 		this.directed = directed;
 	}
 
-	public void setDirectional(boolean directed) {
-		this.directed = directed;
-	}
+	//----------------------------//
+	//---------Methods------------//
+	//----------------------------//
 
+	/**
+	 * add not connected node to the graph
+	 * @param key - the key of the new node
+	 * @param value - the value of the new node 
+	 */
 	public void addNode(K key,V value) {
 		nodes.put(key, value);
 	}
 
+	
 	public void addEdge(K key1, V value1, K key2, V value2) {
+		addEdge(key1, value1, key2, value2, 1);
+	}
+	
+	public void addEdge(K key1, V value1, K key2, V value2, int weight) {
 
 		// check if the node 1 doesn't exist
 		if (nodes.get(key1) == null) {
@@ -110,14 +125,14 @@ public class Graph<K extends Comparable<K>, V> {
 	}
 
 	private Hashtable<K, Integer> BFSR2(Hashtable<K, Integer> levels, K root) {
-		Queue<K> cola = new LinkedList<>();
-        cola.add(root);
+		Queue<K> queue = new LinkedList<>();
+        queue.add(root);
         levels.put(root, 1);
-        while(cola.peek() != null){
-            K actual = cola.poll();
+        while(queue.peek() != null){
+            K actual = queue.poll();
             for(int i = 0; i < adjacencyList.get(actual).size(); i++){
                 if(!levels.contains(adjacencyList.get(actual).get(i))){
-                    cola.add(adjacencyList.get(actual).get(i));
+                    queue.add(adjacencyList.get(actual).get(i));
                     levels.put(adjacencyList.get(actual).get(i),levels.get(actual) + 1);
                 }
             }
@@ -127,15 +142,15 @@ public class Graph<K extends Comparable<K>, V> {
 	}
 
 	private Hashtable<K, Integer> BFSR1(Hashtable<K, Integer> levels, K root) {
-		Queue<K> cola = new LinkedList<>();
-        cola.add(root);
+		Queue<K> queue = new LinkedList<>();
+        queue.add(root);
         levels.put(root, 1);
-        while(cola.peek() != null){
-        	K actual = cola.poll();
+        while(queue.peek() != null){
+        	K actual = queue.poll();
         	ArrayList<K> list = Collections.list(adjacencyArray.get(actual).keys());
             for(int i = 0; i < list.size(); i++){
                 if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.contains(list.get(i))){
-                    cola.add(list.get(i));
+                    queue.add(list.get(i));
                     levels.put(list.get(i),levels.get(list.get(i)) + 1);
                 }
             }
