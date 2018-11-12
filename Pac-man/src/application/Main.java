@@ -1,8 +1,10 @@
 package application;
 	
+import controller.SuperController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.Game;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -11,11 +13,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/mainPage.fxml"));
-			Scene scene = new Scene(root,530,530);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			SuperController c = new SuperController();
+			c.launchMap(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

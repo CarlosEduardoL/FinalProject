@@ -7,9 +7,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapController">
    <children>
-      <ImageView fitHeight="542.0" fitWidth="554.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" onMouseMoved="#move2" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../data/mapa.png" />
+            <Image url="@../../data/Map_C.png" />
          </image>
       </ImageView>
       <ImageView fx:id="phanton" fitHeight="22.0" fitWidth="19.0" layoutX="72.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
