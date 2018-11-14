@@ -13,8 +13,8 @@ import model.Game;
 
 public class MapController implements Initializable {
 	
-	SuperController controller;
-	Game game;
+	private SuperController controller;
+	private Game game;
 	
 	@FXML
 	private ImageView phanton;

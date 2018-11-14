@@ -154,9 +154,12 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	}
 
 	public boolean isConnected() {
-		boolean connected = false;
+		boolean connected = true;
 		Hashtable<K, Integer> levels = BFS(nodes.keys().nextElement());
-
+		
+		for(K key : Collections.list(nodes.keys())) {
+			connected &= levels.containsKey(key);
+		}
 
 		return connected;
 	}

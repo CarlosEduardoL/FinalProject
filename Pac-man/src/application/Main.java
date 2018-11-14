@@ -14,7 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			SuperController c = new SuperController();
-			c.launchMap(primaryStage);
+			c.launchMainScreen(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -9,13 +9,12 @@ import javax.imageio.ImageIO;
 
 public class Game {
 	
-	private boolean[][] array;
+	private boolean[][] map;
 	
 	public boolean checkMove(double e, double d) {
 		int x = (int)e;
 		int y = (int)d;
-		System.out.println(array[x][y] && array[x + 16][y] && array[x + 16][y + 18] && array[x][y + 18]);
-		return array[x][y] && array[x + 16][y] && array[x + 16][y + 18] && array[x][y + 18];
+		return map[x][y] && map[x + 14][y] && map[x + 14][y + 16] && map[x][y + 16];
 	}
 
 	public Game() {
@@ -24,16 +23,16 @@ public class Game {
 			BufferedImage img = ImageIO.read(image);
 			int width = img.getWidth();
 			int height = img.getHeight();
-			array = new boolean[width][height];
-			for (int i = 0; i < array.length; i++) {
-				for (int j = 0; j < array[0].length; j++) {
+			map = new boolean[width][height];
+			for (int i = 0; i < map.length; i++) {
+				for (int j = 0; j < map[0].length; j++) {
 					int p = img.getRGB(i,j);
 					int a = (p>>24)&0xff;
 					int r = (p>>16)&0xff;
 					int g = (p>>8)&0xff;
 					int b = p&0xff;
 					int avg = (r+g+b)/3;
-					array[i][j] = avg < 20;
+					map[i][j] = avg < 20;
 				}
 			}
 			

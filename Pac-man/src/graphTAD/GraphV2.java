@@ -18,7 +18,7 @@ public class GraphV2<K extends Comparable<K>, V> {
 	// Representation 1
 	private Hashtable<K, Hashtable<K, Integer>> adjacencyArray;
 	// Representation 2
-	private Hashtable<K,ArrayList<K>> adjacencyList;
+	private Hashtable<K,K> adjacencyList;
 	// Nodes
 	private Hashtable<K, Node<K,V>> nodes;
 	// type of graph
