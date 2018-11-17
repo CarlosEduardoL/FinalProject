@@ -15,7 +15,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	//-------------------------//
 
 	// Representation
-	private Hashtable<K, Hashtable<K, Integer>> adjacencyArray;
+	private Hashtable<K, Hashtable<K, Integer>> verticesMap;
 	
 	// Nodes
 	private Hashtable<K, Node<K, V>> nodes;
