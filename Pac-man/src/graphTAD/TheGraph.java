@@ -1,6 +1,5 @@
 package graphTAD;
 
-import java.util.Hashtable;
 import java.util.List;
 
 public interface TheGraph<K extends Comparable<K>, V> {

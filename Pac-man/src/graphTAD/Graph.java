@@ -101,16 +101,30 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	@Override
 	public int shortesPathWeight(K key1, K key2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return BellmanFord(key1, key2);
 	}
 
+	@Override
+	public void removeEdge(K from, K to) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void removeNode(K key) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public TheGraph<K, V> MST() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//---------------------------------------------------------//
+	//------------------Private Methods------------------------//
+	//---------------------------------------------------------//
 	private Hashtable<K, Integer> BFS(K root) {
 
 		Hashtable<K, Integer> levels = new Hashtable<>();
@@ -150,13 +164,33 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		return levels;
 	}
 	
-	private int BellmanFord() {
+	private int BellmanFord(K root, K objetive) {
 		
-		for(K key : Collections.list(adjacencyArray.keys())) {
-			
+		List<K> keys = Collections.list(adjacencyArray.keys());
+		Hashtable<K, Integer> distance = new Hashtable<>(keys.size());
+		for(K key : keys) {
+			distance.put(key, Integer.MAX_VALUE);
+		}
+		distance.put(root, 0);
+		
+		for (int i = 0; i < keys.size()-1; i++) {
+			for (int j = 0; j < edges.size(); j++) {
+				if (distance.get(edges.get(j).getFrom()) + edges.get(j).getWeight() < distance.get(edges.get(j).getTo()) ) {
+					distance.put(edges.get(j).getTo(), distance.get(edges.get(j).getFrom()) + edges.get(j).getWeight());
+				}
+			}
 		}
 		
-		return 0;
+		return distance.get(objetive);
 	}
+	
+	private String[][] Floyd_Warshall(){
+		
+		Hashtable<K, Hashtable<K, Integer>>
+		
+		
+		return null;
+	}
+
 
 }
