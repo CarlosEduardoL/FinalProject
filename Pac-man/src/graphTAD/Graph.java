@@ -16,7 +16,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	// Representation
 	private Hashtable<K, Hashtable<K, Integer>> adjacencyArray;
-	
 	// Nodes
 	private Hashtable<K, Node<K, V>> nodes;
 	// Edges
@@ -25,13 +24,16 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	private boolean directed;
 	// representation
 	private int numberOfEdges;
+	
+	private Hashtable<K, Hashtable<K, List<K>>> paths;
+	private boolean changedPaths;
 
 
 	//---------------------------//
 	//--------Constructor--------//
 	//---------------------------//
 
-	public Graph(boolean directed, int representation) {
+	public Graph(boolean directed) {
 		// initialize attributes
 		adjacencyArray = new Hashtable<>();
 		nodes = new Hashtable<>();
@@ -49,19 +51,23 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		if (!nodes.contains(key)) {
 			nodes.put(key, new Node<K, V>(key, value));
 		}
+		changedPaths = true;
 	}
 
 	@Override
 	public void addEdge(K key1, V value1, K key2, V value2) {
 		addEdge(key1, value1, key2, value2, 1);
-		
 	}
 
 	@Override
 	public void addEdge(K key1, V value1, K key2, V value2, int weight) {
+		changedPaths = true;
 		addNode(key1, value1);
 		addNode(key2, value2);
 		edges.add(new Edge<K>(key1, key2, weight));
+		if (!directed) {	
+			edges.add(new Edge<K>(key2, key1, weight));
+		}
 
 		// check if the row in the key2 exist
 		if (adjacencyArray.get(key1) == null) {
@@ -94,9 +100,12 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	}
 
 	@Override
-	public List<Node<K, V>> shortesPath(K key1, K key2) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<K> shortesPath(K key1, K key2) {
+		if (changedPaths) {
+			paths = Floyd_Warshall();
+			changedPaths = false;
+		}
+		return paths.get(key1).get(key2);
 	}
 
 	@Override
@@ -106,14 +115,21 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	@Override
 	public void removeEdge(K from, K to) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < edges.size(); i++) {
+			if (edges.get(i).getFrom().equals(from) && edges.get(i).getTo().equals(to)) {
+				edges.remove(i);
+				i--;
+			}
+			if (!directed && edges.get(i).getTo().equals(from) && edges.get(i).getFrom().equals(to)) {
+				edges.remove(i);
+				i--;
+			}
+		}
 	}
 	
 	@Override
 	public void removeNode(K key) {
-		// TODO Auto-generated method stub
-		
+		nodes.remove(key);
 	}
 	
 	@Override
@@ -184,10 +200,42 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		return distance.get(objetive);
 	}
 	
-	private String[][] Floyd_Warshall(){
+	private Hashtable<K, Hashtable<K, List<K>>> Floyd_Warshall(){
 		
-		Hashtable<K, Hashtable<K, Integer>>
+		Hashtable<K, Hashtable<K, Integer>> weigthArray = new Hashtable<>(nodes.size());
+		Hashtable<K, Hashtable<K, List<K>>> pathArray = new Hashtable<>(nodes.size());
+		List<K> keys = Collections.list(adjacencyArray.keys());
+		for(K key1 : keys) {
+			weigthArray.put(key1, new Hashtable<>(nodes.size()));
+			for(K key2 : keys) {
+				weigthArray.get(key1).put(key2, key1.equals(key2)? 0 : Integer.MAX_VALUE);
+			}
+		}
 		
+		for (int i = 0; i < edges.size(); i++) {
+			Edge<K> edge = edges.get(i);
+			weigthArray.get(edge.getFrom()).put(edge.getTo(), edge.getWeight());
+			List<K> list = new ArrayList<>();
+			list.add(edge.getFrom());
+			list.add(edge.getTo());
+			pathArray.get(edge.getFrom()).put(edge.getTo(), list);
+		}
+		
+		for(K key1 : keys) {
+			for(K key2 : keys) {
+				for(K key3 : keys) {
+					int num1 = weigthArray.get(key2).get(key3);
+					int num2 = weigthArray.get(key2).get(key1) + weigthArray.get(key1).get(key3);
+					weigthArray.get(key2).put(key3, num1 < num2? num1:num2);
+					if (num1 < num2) {
+						List<K> l = pathArray.get(key2).get(key1);
+						l.remove(l.size()-1);
+						l.addAll(pathArray.get(key1).get(key3));
+						pathArray.get(key2).put(key3, l);
+					}
+				}
+			}
+		}
 		
 		return null;
 	}
