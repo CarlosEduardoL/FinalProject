@@ -1,6 +1,7 @@
 package graphTAD;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public interface TheGraph<K extends Comparable<K>, V> {
 	
@@ -10,6 +11,7 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	 * @param value
 	 */
 	public void addNode(K key,V value);
+	
 	/**
 	 * make an edge between two nodes, if the nodes does not exist add there
 	 * @param key1
@@ -18,9 +20,55 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	 * @param value2
 	 */
 	public void addEdge(K key1, V value1, K key2, V value2);
+	
+	/**
+	 * 
+	 * @param key1
+	 * @param value1
+	 * @param key2
+	 * @param value2
+	 * @param weight
+	 */
 	public void addEdge(K key1, V value1, K key2, V value2, int weight);
-	public Hashtable<K, Integer> BFS(K root);
-	public Hashtable<K, Integer> DFS(K root);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Node<K,V>> shortesPath(K key1, K key2);
+	
+	
+	/**
+	 * check if the graph is connected
+	 * @return
+	 */
 	public boolean isConnected();
+	
+	/**
+	 * 
+	 * @param key1
+	 * @param key2
+	 * @return
+	 */
+	public int shortesPathWeight(K key1, K key2);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public TheGraph<K, V> MST();
+	
+	/**
+	 * 
+	 * @param key1
+	 * @param key2
+	 */
+	public void removeEdge(K from, K to);
+	
+	/**
+	 * 
+	 * @param key
+	 */
+	public void removeNode(K key);
 	
 }

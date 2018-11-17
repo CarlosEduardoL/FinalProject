@@ -6,29 +6,25 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
-
-	//-------------------------//
-	//-------Constants---------//
-	//-------------------------//
-	public static final int ADJACENCY_ARRAY = 1;
-	public static final int ADJACENCY_LIST = 2;
 
 	//-------------------------//
 	//-------Parameters--------//
 	//-------------------------//
 
-	// Representation 1
+	// Representation
 	private Hashtable<K, Hashtable<K, Integer>> adjacencyArray;
-	// Representation 2
-	private Hashtable<K,ArrayList<K>> adjacencyList;
+	
 	// Nodes
-	private Hashtable<K, V> nodes;
+	private Hashtable<K, Node<K, V>> nodes;
+	// Edges
+	private List<Edge<K>> edges;
 	// type of graph
 	private boolean directed;
 	// representation
-	private int representation;
+	private int numberOfEdges;
 
 
 	//---------------------------//
@@ -36,48 +32,36 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	//---------------------------//
 
 	public Graph(boolean directed, int representation) {
+		// initialize attributes
 		adjacencyArray = new Hashtable<>();
-		adjacencyList = new Hashtable<>();
 		nodes = new Hashtable<>();
+		edges = new ArrayList<>();
 		this.directed = directed;
+		numberOfEdges = 0;
 	}
 
 	//----------------------------//
 	//---------Methods------------//
 	//----------------------------//
 
-	/**
-	 * add not connected node to the graph
-	 * @param key - the key of the new node
-	 * @param value - the value of the new node 
-	 */
+	@Override
 	public void addNode(K key,V value) {
 		if (!nodes.contains(key)) {
-			nodes.put(key, value);
+			nodes.put(key, new Node<K, V>(key, value));
 		}
 	}
 
-
+	@Override
 	public void addEdge(K key1, V value1, K key2, V value2) {
 		addEdge(key1, value1, key2, value2, 1);
+		
 	}
 
+	@Override
 	public void addEdge(K key1, V value1, K key2, V value2, int weight) {
-
-
 		addNode(key1, value1);
 		addNode(key2, value2);
-
-
-		addEdgeR1(key1, key2);
-		addEdgeR2(key1, key2);
-
-	}
-
-	private void addEdgeR1(K key1, K key2) {
-		//-------------------------------------------//
-		//----------- Representation 1 --------------//
-		//-------------------------------------------//
+		edges.add(new Edge<K>(key1, key2, weight));
 
 		// check if the row in the key2 exist
 		if (adjacencyArray.get(key1) == null) {
@@ -92,51 +76,45 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 			adjacents = adjacencyArray.get(key2).get(key1) != null? adjacencyArray.get(key2).get(key1) + 1 : 0;
 			adjacencyArray.get(key2).put(key1,  adjacents);
 		}
+		
+		numberOfEdges++;
 	}
 
-	private void addEdgeR2(K key1, K key2)  {
-		//-------------------------------------------//
-		//----------- Representation 2 --------------//
-		//-------------------------------------------//
-		if(adjacencyList.get(key1) == null) {
-			adjacencyList.put(key1, new ArrayList<K>());
-		}
-		adjacencyList.get(key1).add(key2);
+	@Override
+	public boolean isConnected() {
+		
+		boolean connected = true;
+		Hashtable<K, Integer> levels = BFS(nodes.keys().nextElement());
 
-		if (!directed) {
-			if(adjacencyList.get(key2) == null) {
-				adjacencyList.put(key2, new ArrayList<K>());
-			}
-			adjacencyList.get(key2).add(key1);
+		for(K key : Collections.list(nodes.keys())) {
+			connected &= levels.containsKey(key);
 		}
 
+		return connected;
 	}
 
-	public Hashtable<K, Integer> BFS(K root) {
+	@Override
+	public List<Node<K, V>> shortesPath(K key1, K key2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int shortesPathWeight(K key1, K key2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public TheGraph<K, V> MST() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Hashtable<K, Integer> BFS(K root) {
 
 		Hashtable<K, Integer> levels = new Hashtable<>();
 
-		return representation == 1? BFSR1(levels,root):BFSR2(levels,root);
-	}
-
-	private Hashtable<K, Integer> BFSR2(Hashtable<K, Integer> levels, K root) {
-		Queue<K> queue = new LinkedList<>();
-		queue.add(root);
-		levels.put(root, 1);
-		while(queue.peek() != null){
-			K actual = queue.poll();
-			for(int i = 0; i < adjacencyList.get(actual).size(); i++){
-				if(!levels.contains(adjacencyList.get(actual).get(i))){
-					queue.add(adjacencyList.get(actual).get(i));
-					levels.put(adjacencyList.get(actual).get(i),levels.get(actual) + 1);
-				}
-			}
-
-		}
-		return levels;
-	}
-
-	private Hashtable<K, Integer> BFSR1(Hashtable<K, Integer> levels, K root) {
 		Queue<K> queue = new LinkedList<>();
 		queue.add(root);
 		levels.put(root, 1);
@@ -153,21 +131,32 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		return levels;
 	}
 
-	public boolean isConnected() {
-		boolean connected = true;
-		Hashtable<K, Integer> levels = BFS(nodes.keys().nextElement());
-		
-		for(K key : Collections.list(nodes.keys())) {
-			connected &= levels.containsKey(key);
+	private Hashtable<K, Integer> DFS(K root) {
+		Hashtable<K, Integer> levels = new Hashtable<>();
+
+		Stack<K> queue = new Stack<>();
+		queue.add(root);
+		levels.put(root, 1);
+		while(queue.peek() != null){
+			K actual = queue.pop();
+			ArrayList<K> list = Collections.list(adjacencyArray.get(actual).keys());
+			for(int i = 0; i < list.size(); i++){
+				if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.contains(list.get(i))){
+					queue.add(list.get(i));
+					levels.put(list.get(i),levels.get(list.get(i)) + 1);
+				}
+			}
 		}
-
-		return connected;
+		return levels;
 	}
-
-	@Override
-	public Hashtable<K, Integer> DFS(K root) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private int BellmanFord() {
+		
+		for(K key : Collections.list(adjacencyArray.keys())) {
+			
+		}
+		
+		return 0;
 	}
 
 }

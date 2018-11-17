@@ -16,7 +16,7 @@
       </ImageView>
       <ImageView fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" onMouseMoved="#move2" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../data/Map_C.png" />
+            <Image url="@../../data/newMap.png" />
          </image>
       </ImageView>
       <ImageView fx:id="phanton" fitHeight="22.0" fitWidth="19.0" layoutX="255.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
