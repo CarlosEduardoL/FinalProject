@@ -34,7 +34,7 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	 * 
 	 * @return
 	 */
-	public List<Node<K,V>> shortesPath(K key1, K key2);
+	public List<K> shortesPath(K key1, K key2);
 	
 	
 	/**
