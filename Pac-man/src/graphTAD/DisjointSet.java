@@ -17,7 +17,7 @@ public class DisjointSet<K extends Comparable<K>> {
 	}
 	
 	public void union(K key1, K key2) {
-		representants.put(key2, representant(key1));
+		representants.put(representant(key2), representant(key1));
 	}
 	
 	public K representant(K key) {
