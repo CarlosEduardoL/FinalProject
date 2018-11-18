@@ -41,6 +41,15 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		this.directed = directed;
 		numberOfEdges = 0;
 	}
+	
+	public Graph(boolean directed, int numberOfNodes) {
+		// initialize attributes
+		adjacencyArray = new Hashtable<>(numberOfNodes);
+		nodes = new Hashtable<>(numberOfNodes);
+		edges = new ArrayList<>();
+		this.directed = directed;
+		numberOfEdges = 0;
+	}
 
 	//----------------------------//
 	//---------Methods------------//
@@ -115,6 +124,10 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	@Override
 	public void removeEdge(K from, K to) {
+		adjacencyArray.get(from).remove(to);
+		if (!directed) {
+			adjacencyArray.get(to).remove(from);
+		}
 		for (int i = 0; i < edges.size(); i++) {
 			if (edges.get(i).getFrom().equals(from) && edges.get(i).getTo().equals(to)) {
 				edges.remove(i);
@@ -130,6 +143,13 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	@Override
 	public void removeNode(K key) {
 		nodes.remove(key);
+		adjacencyArray.remove(key);
+		List<K> list = Collections.list(adjacencyArray.keys());
+		for (K keys : list) {
+			adjacencyArray.get(keys).remove(key);
+			removeEdge(keys, key);
+			removeEdge(key, keys);
+		}
 	}
 	
 	@Override
