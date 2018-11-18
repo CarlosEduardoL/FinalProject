@@ -29,10 +29,7 @@ public class GraphTest {
 		try {
 
 			
-			System.out.println(game.getMatches().size());
-			for (int i = 0; i <game.getMatches().size(); i++) {
-				System.out.println(game.getMatches().get(i).getFirst());
-			}
+
 			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
