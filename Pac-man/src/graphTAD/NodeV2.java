@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 
 	private T value;
+	private boolean visited;
 	private ArrayList<EdgeV2<?>> edges;
 
 	public NodeV2(T value) {
@@ -51,6 +52,14 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 		else
 			return -1;
 
+	}
+	
+	public boolean isVisited() {
+		return visited;
+	}
+	
+	public void setVisited(boolean b) {
+		this.visited = b;
 	}
 
 }
