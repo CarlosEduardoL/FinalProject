@@ -1,6 +1,6 @@
 package graphTAD;
 
-public class Edge<K extends Comparable<K>> {
+public class Edge<K extends Comparable<K>> implements Comparable<Edge<K>>{
 	
 	private K from;
 	private K to;
@@ -23,6 +23,11 @@ public class Edge<K extends Comparable<K>> {
 
 	public int getWeight() {
 		return weight;
+	}
+
+	@Override
+	public int compareTo(Edge<K> o) {
+		return weight - o.weight;
 	}
 	
 }

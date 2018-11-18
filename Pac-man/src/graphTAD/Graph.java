@@ -14,13 +14,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	//-------Parameters--------//
 	//-------------------------//
 
-	// Representation
-<<<<<<< HEAD
-	private Hashtable<K, Hashtable<K, Integer>> verticesMap;
-	
-=======
 	private Hashtable<K, Hashtable<K, Integer>> adjacencyArray;
->>>>>>> 44f1cb5efbc34eb975e5a843ca9cdead8ead7d49
 	// Nodes
 	private Hashtable<K, Node<K, V>> nodes;
 	// Edges
@@ -139,8 +133,20 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	
 	@Override
 	public TheGraph<K, V> MST() {
-		// TODO Auto-generated method stub
-		return null;
+		TheGraph<K, V> minimun = new Graph<>(false);
+		Collections.sort(edges);
+		DisjointSet<K> dis = new DisjointSet<>(); 
+		for (int i = 0; i < edges.size(); i++) {
+			K key1 = edges.get(i).getFrom();
+			K key2 = edges.get(i).getTo();
+			dis.makeGroup(key1);
+			dis.makeGroup(key2);
+			if (!dis.representant(key1).equals(dis.representant(key2))) {
+				dis.union(key1, key2);
+				minimun.addEdge(key1, nodes.get(key1).getValue(), key2, nodes.get(key2).getValue(), edges.get(i).getWeight());
+			}
+		}
+		return minimun;
 	}
 
 	//---------------------------------------------------------//
@@ -242,7 +248,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 			}
 		}
 		
-		return null;
+		return pathArray;
 	}
 
 

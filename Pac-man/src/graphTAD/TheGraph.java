@@ -12,7 +12,7 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	public void addNode(K key,V value);
 	
 	/**
-	 * make an edge between two nodes, if the nodes does not exist add there
+	 * make an edge between two nodes, if the nodes does not exist add there</br>
 	 * @param key1
 	 * @param value1
 	 * @param key2
@@ -21,7 +21,7 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	public void addEdge(K key1, V value1, K key2, V value2);
 	
 	/**
-	 * 
+	 * make an edge between two nodes whit weight, if the nodes does not exist add there</br>
 	 * @param key1
 	 * @param value1
 	 * @param key2
