@@ -8,6 +8,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * 
+ * @author Carlos Eduardo Lizalda Valencia
+ *
+ * @param <K> Key or index of the node
+ * @param <V> Value or the same K of the node
+ */
 public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	//-------------------------//
@@ -22,8 +29,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	private List<Edge<K>> edges;
 	// type of graph
 	private boolean directed;
-	// representation
-	private int numberOfEdges;
 	
 	private Hashtable<K, Hashtable<K, List<K>>> paths;
 	private boolean changedPaths;
@@ -39,7 +44,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		nodes = new Hashtable<>();
 		edges = new ArrayList<>();
 		this.directed = directed;
-		numberOfEdges = 0;
 	}
 	
 	public Graph(boolean directed, int numberOfNodes) {
@@ -48,7 +52,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		nodes = new Hashtable<>(numberOfNodes);
 		edges = new ArrayList<>();
 		this.directed = directed;
-		numberOfEdges = 0;
 	}
 
 	//----------------------------//
@@ -56,7 +59,11 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	//----------------------------//
 	
 	public int getNumberOfEdges() {
-		return numberOfEdges;
+		return edges.size();
+	}
+	
+	public int getNumberOfNodes() {
+		return nodes.size();
 	}
 
 	@Override
@@ -96,7 +103,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 			adjacencyArray.get(key2).put(key1,  adjacents);
 		}
 		
-		numberOfEdges++;
 	}
 
 	@Override
