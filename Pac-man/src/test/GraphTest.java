@@ -21,15 +21,15 @@ import graphTAD.Graph;
  */
 public class GraphTest {
 	
-	private Graph graph;
-	private Graph r;
-	private Graph l;
+	private Graph<Integer, Integer> graph;
+	private Graph<Integer, Integer> r;
+	private Graph<Integer, Integer> l;
 
 	@SuppressWarnings("rawtypes")
 	void setupStage1() {
-		Edge e1 =new Edge(5, 15, 10);
+		Edge<Integer> e1 =new Edge<Integer>(5, 15, 10);
 		
-		graph = new Graph(true);
+		graph = new Graph<Integer, Integer>(true);
 		graph.addEdge(7, 5, 8, 15, 10);
 		graph.addEdge(8, 15, 9, 1, 1);
 		graph.addEdge(7, 5, 10, 8, 15);
@@ -52,14 +52,14 @@ public class GraphTest {
 	}
 	
 	void setupStage3() {
-		Graph<Integer, Integer> g = new Graph<>(false);
-		g.addEdge(13, 13, 8, 8, 5);
-		g.addEdge(13, 13, 5, 5, 4);
-		g.addEdge(13, 13, 21, 21, 2);
-		g.addEdge(9, 9, 8, 8, 6);
-		g.addEdge(9, 9, 21, 21, 5);
-		g.addEdge(5, 5, 21, 21, 1);
-		Graph<Integer, Integer> l = (Graph<Integer, Integer>) g.MST();
+		Graph<Integer, Integer> graph = new Graph<>(false);
+		graph.addEdge(13, 13, 8, 8, 5);
+		graph.addEdge(13, 13, 5, 5, 4);
+		graph.addEdge(13, 13, 21, 21, 2);
+		graph.addEdge(9, 9, 8, 8, 6);
+		graph.addEdge(9, 9, 21, 21, 5);
+		graph.addEdge(5, 5, 21, 21, 1);
+		Graph<Integer, Integer> l = (Graph<Integer, Integer>) graph.MST();
 	}
 	
 	void setupStage4() {
@@ -91,23 +91,27 @@ public class GraphTest {
 		
 		
 	}
-	
+	@Test
 	void testShortesPath() {
+		setupStage2();
 		List path =graph.shortesPath(7, 11);
 		assertTrue((int)path.get(0)==8);
 	}
 	
-	
+	@Test
 	void testShortestPathWeight() {
+		setupStage2();
 		int weight =graph.shortesPathWeight(7, 11);
 		assertTrue(weight==12);
 	}
-	
+	@Test
 	void testIsConnect() {
+		setupStage2();
 		assertFalse(graph.isConnected());
 	}
-	
+	@Test
 	void testRemoveEdge() {
+		setupStage2();
 		int lastOneNum =graph.getNumberOfEdges();
 
 		graph.removeEdge(7, 10);
@@ -119,7 +123,7 @@ public class GraphTest {
 		assertTrue(lastOneNum-2==nextNum);
 
 	}
-	
+	@Test
 	void testRemoveNode() {
 		setupStage4();
 		int lastOneNum =graph.getNumberOfNodes();
@@ -134,7 +138,7 @@ public class GraphTest {
 
 
 	}
-	
+	@Test
 	void testAddNodes() {
 		setupStage4();
 		int lastOneNum =graph.getNumberOfNodes();
@@ -147,12 +151,12 @@ public class GraphTest {
 		int nextNum =graph.getNumberOfNodes();
 		assertTrue(lastOneNum+4==nextNum);
 	}
-	
+	@Test
 	void testMST() {
 		setupStage3();
 		setupStage4();
 		
-		assertTrue(r==l);
+		assertTrue(r.equals(l));
 	}
 	
 }
