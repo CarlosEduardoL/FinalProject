@@ -164,7 +164,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	
 	@Override
 	public TheGraph<K, V> MST() {
-		TheGraph<K, V> minimun = new Graph<>(false);
+		TheGraph<K, V> minimun = new Graph<>(directed);
 		Collections.sort(edges);
 		DisjointSet<K> dis = new DisjointSet<>(); 
 		int cost = 0;
