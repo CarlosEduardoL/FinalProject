@@ -10,8 +10,7 @@ public class Node<K extends Comparable<K>, V> {
 	private List<K> adjacents;
 	private Hashtable<K, Integer> weights;
 	
-	public Node(K key, V value) {
-		super();
+	protected Node(K key, V value) {
 		this.key = key;
 		this.value = value;
 		

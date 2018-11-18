@@ -157,16 +157,20 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		TheGraph<K, V> minimun = new Graph<>(false);
 		Collections.sort(edges);
 		DisjointSet<K> dis = new DisjointSet<>(); 
+		int cost = 0;
 		for (int i = 0; i < edges.size(); i++) {
 			K key1 = edges.get(i).getFrom();
 			K key2 = edges.get(i).getTo();
 			dis.makeGroup(key1);
 			dis.makeGroup(key2);
+			
 			if (!dis.representant(key1).equals(dis.representant(key2))) {
 				dis.union(key1, key2);
 				minimun.addEdge(key1, nodes.get(key1).getValue(), key2, nodes.get(key2).getValue(), edges.get(i).getWeight());
+				cost += edges.get(i).getWeight();
 			}
 		}
+		System.out.println(cost);
 		return minimun;
 	}
 
@@ -272,5 +276,15 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		return pathArray;
 	}
 
-
+	public static void main(String[] args) {
+		Graph<Integer, Integer> g = new Graph<>(false);
+		g.addEdge(13, 13, 8, 8, 5);
+		g.addEdge(13, 13, 5, 5, 4);
+		g.addEdge(13, 13, 21, 21, 2);
+		g.addEdge(9, 9, 8, 8, 6);
+		g.addEdge(9, 9, 21, 21, 5);
+		g.addEdge(5, 5, 21, 21, 1);
+		g.MST();
+	}
+	
 }
