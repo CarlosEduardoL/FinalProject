@@ -6,7 +6,7 @@ public class Edge<K extends Comparable<K>> implements Comparable<Edge<K>>{
 	private K to;
 	private int weight;
 	
-	protected Edge(K to, K from, int weight) {
+	public Edge(K to, K from, int weight) {
 		super();
 		this.to = to;
 		this.from = from;

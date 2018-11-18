@@ -54,6 +54,10 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	//----------------------------//
 	//---------Methods------------//
 	//----------------------------//
+	
+	public int getNumberOfEdges() {
+		return numberOfEdges;
+	}
 
 	@Override
 	public void addNode(K key,V value) {
