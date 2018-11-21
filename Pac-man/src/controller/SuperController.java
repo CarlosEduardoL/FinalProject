@@ -34,7 +34,7 @@ public class SuperController {
 		MapController map = loader.getController();
 		map.setController(this);
 		map.setGame(game);
-		Scene scene = new Scene(root,530,530);
+		Scene scene = new Scene(root,530,580);
 		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();

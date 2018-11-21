@@ -38,7 +38,7 @@ public class Game {
 		return phanton;
 	}
 	
-	public synchronized void movePacmans() {
+	public void movePacmans() {
 		for (int i = 0; i < pacMans.length; i++) {
 			if (pacMans[i].isInMove()) {
 				pacMans[i].move();

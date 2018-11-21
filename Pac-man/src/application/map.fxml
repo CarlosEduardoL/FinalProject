@@ -14,7 +14,7 @@
             <Image url="@../../data/negro.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../data/newMap.png" />
          </image>
@@ -40,9 +40,24 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="pac1" fitHeight="25.0" fitWidth="25.0" layoutX="121.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pac1" fitHeight="24.0" fitWidth="24.0" layoutX="214.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../data/pacman_sprite_R1.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pac2" fitHeight="25.0" fitWidth="25.0" layoutX="108.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../data/pacman_sprite_R2.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pac3" fitHeight="25.0" fitWidth="25.0" layoutX="295.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../data/pacman_sprite_R3.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pac4" fitHeight="25.0" fitWidth="25.0" layoutX="282.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../data/pacman_sprite_R4.gif" />
          </image>
       </ImageView>
    </children>
