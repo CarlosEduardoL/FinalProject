@@ -129,6 +129,8 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	@Override
 	public int shortesPathWeight(K key1, K key2) {
+		paths = Floyd_Warshall();
+		changedPaths = false;
 		return BellmanFord(key1, key2);
 	}
 
@@ -180,7 +182,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 				cost += edges.get(i).getWeight();
 			}
 		}
-		System.out.println(cost);
 		return minimun;
 	}
 
@@ -249,34 +250,33 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	private Hashtable<K, Hashtable<K, List<V>>> Floyd_Warshall(){
 
 		Hashtable<K, Hashtable<K, Integer>> weigthArray = new Hashtable<>(nodes.size());
-		Hashtable<K, Hashtable<K, List<V>>> pathArray = new Hashtable<>(nodes.size());
+		paths = new Hashtable<>(nodes.size());
 		List<K> keys = Collections.list(adjacencyArray.keys());
 		for(K key1 : keys) {
 			weigthArray.put(key1, new Hashtable<>(nodes.size()));
-			pathArray.put(key1, new Hashtable<>());
+			paths.put(key1, new Hashtable<>());
 			for(K key2 : keys) {
 				weigthArray.get(key1).put(key2, key1.equals(key2)? 0 : 999999);
-				pathArray.get(key1).put(key2, new ArrayList<>());
+				paths.get(key1).put(key2, new ArrayList<>());
 				if (adjacencyArray.get(key1).get(key2) != null) {
 					List<V> list = new ArrayList<>();
 					list.add(nodes.get(key1).getValue());
 					list.add(nodes.get(key2).getValue());
-					pathArray.get(key1).put(key2, list);
+					paths.get(key1).put(key2, list);
 				}else if(key1.equals(key2)) {
 					List<V> list = new ArrayList<>();
 					list.add(nodes.get(key1).getValue());
-					pathArray.get(key1).put(key2, list);
+					paths.get(key1).put(key2, list);
 				}
 			}
 		}
 
-		for (int i = 0; i < edges.size(); i++) {
-			Edge<K> edge = edges.get(i);
+		for (Edge<K> edge: edges) {
 			weigthArray.get(edge.getFrom()).put(edge.getTo(), edge.getWeight());
 			List<V> list = new ArrayList<>();
 			list.add(nodes.get(edge.getFrom()).getValue());
 			list.add(nodes.get(edge.getTo()).getValue());
-			pathArray.get(edge.getFrom()).put(edge.getTo(), list);
+			paths.get(edge.getFrom()).put(edge.getTo(), list);
 		}
 
 		for(K key1 : keys) {
@@ -287,19 +287,20 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 					if (num1 > num2) {
 						weigthArray.get(key2).put(key3,num2);
 						List<V> l;
-						l = new ArrayList<>(pathArray.get(key2).get(key1));
+						l = new ArrayList<>(paths.get(key2).get(key1));
 						if (l.size() > 0) {
 							l.remove(l.size()-1);
 						}
-						l.addAll(pathArray.get(key1).get(key3));
-						pathArray.get(key2).put(key3, l);
+						l.addAll(paths.get(key1).get(key3));
+						paths.get(key2).put(key3, l);
 
 					}
 				}
 			}
+			System.out.println("aun no termino");
 		}
 
-		return pathArray;
+		return paths;
 	}
 
 	public static void main(String[] args) {
@@ -310,7 +311,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		g.addEdge(9, 9, 8, 8, 6);
 		g.addEdge(9, 9, 21, 21, 5);
 		g.addEdge(5, 5, 21, 21, 1);
-//		g.MST();
+		g.MST();
 		List<Integer> list = g.shortesPath(13, 21);
 		for(Integer i: list) {
 			System.out.println(i);

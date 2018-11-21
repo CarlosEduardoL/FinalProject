@@ -3,7 +3,7 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +22,7 @@ public class Game {
 	private PacMan[] pacMans;
 
 	public Game() {
-		
+		pacMans = new PacMan[4];
 		graph = new Graph<>(false);
 		makeImage();
 		
@@ -34,10 +34,34 @@ public class Game {
 		}
 	}
 	
+	public Ghost getPhanton() {
+		return phanton;
+	}
+	
+	public synchronized void movePacmans() {
+		for (int i = 0; i < pacMans.length; i++) {
+			if (pacMans[i].isInMove()) {
+				pacMans[i].move();
+			}else {
+				List<Point> list = graph.shortesPath(pacMans[i].getLastPoint().getIdentificador(), phanton.getMark().getIdentificador());
+				pacMans[i].move(list);
+			}
+		}
+	}
+	
+	public int[] posPacman(int i){
+		int[] a = {pacMans[i].getPosX(),pacMans[i].getPosY()};
+		return a;
+	}
+	
+	public void movePhantom(double e, double d) {
+		phanton.move(e, d);
+	}
+	
 	public boolean checkMove(double e, double d) {
 		double x = (e/BLOCK_SIZE);
 		double y = (d/BLOCK_SIZE);
-		return x>0 && x+0.9 <SCREEN_HEIGHT/BLOCK_SIZE && y>0 && y+0.9 <SCREEN_HEIGHT/BLOCK_SIZE &&
+		return x>-1 && x+0.9 <SCREEN_HEIGHT/BLOCK_SIZE && y>-1 && y+0.9 <SCREEN_HEIGHT/BLOCK_SIZE &&
 				map[(int) x][(int) y] && map[(int) (x+0.80)][(int) (y+0.9)]
 						&& map[(int) (x+0.80)][(int) y] && map[(int) x][(int) (y+0.9)];
 	}
@@ -52,12 +76,35 @@ public class Game {
 				int y = j/BLOCK_SIZE;
 				map[x][y] = !wall;
 				if (!wall) {
-					graph.addNode(""+i+j, new Point(i,j));
+					Point point = new Point(i,j);
+					point.setIdentificador(""+i+j);
+					graph.addNode(point.getIdentificador(), point);
 					if (i > 0 && map[x-1][y]) {
-						graph.addEdge((i-1) +""+(j), new Point(i-1, j), ""+i+j, new Point(i, j));
+						Point p2 = new Point(i-BLOCK_SIZE, j);
+						p2.setIdentificador((i-BLOCK_SIZE) +""+(j));
+						graph.addEdge(p2.getIdentificador(), p2, point.getIdentificador(), point);
 					}
 					if (j > 0 && map[x][y-1]) {
-						graph.addEdge((i) +""+(j-1), new Point(i, j-1), ""+i+j, new Point(i, j));
+						Point p2 = new Point(i, j-BLOCK_SIZE);
+						p2.setIdentificador((i) +""+(j-BLOCK_SIZE));
+						graph.addEdge(p2.getIdentificador(), p2, point.getIdentificador(), point);
+					}
+					if (i%2==0 && j%3==0) {
+						boolean parar =false;
+						for (int k = 0; k < pacMans.length && !parar; k++) {
+							if (pacMans[k] == null) {
+								pacMans[k] = new PacMan(i,j);
+								pacMans[k].setLastPoint(point);
+								parar = true;
+							}
+						}
+					}else if (phanton == null) {
+						phanton = new Ghost(8, "Carlos");
+						phanton.setPosY(j);
+						phanton.setPosX(i);
+						phanton.setMark(point);
+					}{
+						
 					}
 				}
 				for (int k = i; k < i + BLOCK_SIZE; k++) {
@@ -68,7 +115,7 @@ public class Game {
 			}
 		}
 		
-		
+		graph.shortesPathWeight("", "");
 		return image;
 	}
 
