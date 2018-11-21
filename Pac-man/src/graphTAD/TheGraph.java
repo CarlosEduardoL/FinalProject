@@ -35,7 +35,7 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	 * from node A to node B in the shortest path</br>
 	 * @return
 	 */
-	public List<K> shortesPath(K key1, K key2);
+	public List<V> shortesPath(K key1, K key2);
 	
 	
 	/**

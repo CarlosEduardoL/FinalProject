@@ -14,12 +14,12 @@
             <Image url="@../../data/negro.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" onMouseMoved="#move2" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="530.0" fitWidth="530.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../data/newMap.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="phanton" fitHeight="22.0" fitWidth="19.0" layoutX="255.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="phanton" fitHeight="24.0" fitWidth="24.0" layoutX="301.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../data/fantasma.png" />
          </image>
@@ -40,5 +40,10 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <ImageView fx:id="pac1" fitHeight="25.0" fitWidth="25.0" layoutX="121.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../data/pacman_sprite_R1.gif" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
