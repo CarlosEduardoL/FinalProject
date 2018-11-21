@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 
 	private T value;
+	private boolean visited;
 	private ArrayList<EdgeV2<?>> edges;
-
+	private double minimumEdgeCost;
+	
+	
 	public NodeV2(T value) {
 
 		this.value = value;
@@ -44,13 +47,33 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 
 	@Override
 	public int compareTo(NodeV2<T> o) {
+		
+		return (int)( this.minimumEdgeCost - o.minimumEdgeCost);
 
-		if (this.equals(o))
-			return 0;
-
-		else
-			return -1;
-
+	}
+	
+	public boolean isVisited() {
+		return visited;
+	}
+	
+	public void setVisited(boolean b) {
+		this.visited = b;
+	}
+	
+	public double minEdge() {
+		
+		double menor = Integer.MAX_VALUE;
+		for (int i = 0; i < edges.size(); i++) {
+			if(edges.get(i).getCost() < menor) {
+				menor = edges.get(i).getCost();
+			}
+		}
+		
+		return menor;
+	}
+	
+	public void setMinValue(double newMin) {
+		minimumEdgeCost =  newMin;
 	}
 
 }
