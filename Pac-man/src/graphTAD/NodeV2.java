@@ -1,6 +1,7 @@
 package graphTAD;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 
@@ -8,6 +9,7 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 	private boolean visited;
 	private ArrayList<EdgeV2<?>> edges;
 	private double minimumEdgeCost;
+	private LinkedList<NodeV2<?>> predecessors;
 	
 	
 	public NodeV2(T value) {
@@ -75,5 +77,16 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 	public void setMinValue(double newMin) {
 		minimumEdgeCost =  newMin;
 	}
+	
+	public LinkedList<NodeV2<?>> getPredecessors() {
+		return predecessors;
+	}
+
+	public void setPredecessors(LinkedList<NodeV2<?>> predecessors) {
+		this.predecessors = predecessors;
+	}
+	
+	
+
 
 }

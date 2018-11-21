@@ -1,5 +1,6 @@
 package graphTAD;
 
+
 public class EdgeV2<E extends Comparable<E>> implements Comparable<EdgeV2<E>> {
 
 	private E value;
@@ -7,6 +8,7 @@ public class EdgeV2<E extends Comparable<E>> implements Comparable<EdgeV2<E>> {
 	private boolean directed;
 	private NodeV2<?> from;
 	private NodeV2<?> destination;
+
 
 	public EdgeV2(boolean directed, double cost, E value) {
 
@@ -79,6 +81,8 @@ public class EdgeV2<E extends Comparable<E>> implements Comparable<EdgeV2<E>> {
 		return cost + " - " + value.toString();
 
 	}
+
+
 
 
 }

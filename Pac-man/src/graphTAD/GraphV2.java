@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Stack;
@@ -225,7 +226,7 @@ public class GraphV2<T extends Comparable<T>, E extends Comparable<E>> implement
 		
 	}
 	
-	public void calculate(NodeV2 source){
+	public void dijkstra(NodeV2 source){
 		// Algo:
 		// 1. Take the unvisited node with minimum weight.
 		// 2. Visit all its neighbours.
@@ -249,8 +250,8 @@ public class GraphV2<T extends Comparable<T>, E extends Comparable<E>> implement
 					neighbour.getDestination().setMinValue(newDist);
 					
 					// Take the path visited till now and add the new node.s
-					neighbour.target.path = new LinkedList<Vertex>(u.path);
-					neighbour.target.path.add(u);
+					neighbour.getDestination().setPredecessors(new LinkedList<NodeV2>(u.getPredecessors()));
+					neighbour.getDestination().getPredecessors().add(u);
 					
 					//Reenter the node with new distance.
 					queue.add(neighbour.getDestination());					
