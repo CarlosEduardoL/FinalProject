@@ -37,14 +37,14 @@ public class MapController implements Initializable {
 		double x = phanton.getLayoutX();
 		double y = phanton.getLayoutY();
 		KeyCode k = e.getCode();
-		if (k.equals(KeyCode.UP) && game.checkMove(x, y - 7)) {
-			phanton.setLayoutY(phanton.getLayoutY() - 7);
-		}else if(k.equals(KeyCode.DOWN) && game.checkMove(x, y + 7)) {
-			phanton.setLayoutY(phanton.getLayoutY()+ 7);
-		}else if(k.equals(KeyCode.LEFT) && game.checkMove(x - 7, y)) {
-			phanton.setLayoutX(phanton.getLayoutX()- 7);
-		}else if(k.equals(KeyCode.RIGHT) && game.checkMove(x + 7, y)) {
-			phanton.setLayoutX(phanton.getLayoutX()+ 7);
+		if (k.equals(KeyCode.UP) && game.checkMove(x, y - 5)) {
+			phanton.setLayoutY(phanton.getLayoutY() - 5);
+		}else if(k.equals(KeyCode.DOWN) && game.checkMove(x, y + 5)) {
+			phanton.setLayoutY(phanton.getLayoutY()+ 5);
+		}else if(k.equals(KeyCode.LEFT) && game.checkMove(x - 5, y)) {
+			phanton.setLayoutX(phanton.getLayoutX()- 5);
+		}else if(k.equals(KeyCode.RIGHT) && game.checkMove(x + 5, y)) {
+			phanton.setLayoutX(phanton.getLayoutX()+ 5);
 		}
 	}
 	
