@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -169,7 +170,6 @@ public class GraphTest {
 		setupStage2();
 
 		int peso = graph.shortesPathWeight(1, 10);
-		System.out.println(peso);
 		assertTrue(peso==390);
 		
 		graph.addEdge(10, 10, 11, 11, 45);
@@ -177,7 +177,6 @@ public class GraphTest {
 		graph.addEdge(10, 10, 12, 12, 150);
 
 		int pesoPost = graph.shortesPathWeight(1, 12);
-		System.out.println(pesoPost);
 		
 		assertTrue(peso+95==pesoPost);
 	}
@@ -188,9 +187,10 @@ public class GraphTest {
 		//creo que el problema es que un grafo es dirigido y el otro no y cuando son iguales en ese booleano, las arsitas se duplican uno respecto el otro
 		setupStage1();
 		mst =(Graph<Integer, Integer>) graph.MST();
+		List<Integer> list = Collections.list(mst.adjacencyArray.keys());
 
 		
-		Graph<Integer, Integer> prueba =new Graph<>(false);
+		Graph<Integer, Integer> prueba =new Graph<>(true);
 		prueba.addEdge(1, 1, 2, 2, 84);
 		prueba.addEdge(2, 2, 3, 3, 130);
 		prueba.addEdge(3, 3, 4, 4, 95);
@@ -201,7 +201,7 @@ public class GraphTest {
 		prueba.addEdge(8, 8, 9, 9, 98);
 		prueba.addEdge(9, 9, 10, 10, 245);
 
-	//	assertEquals(mst, prueba);
+		assertEquals(mst, prueba);
 
 	}
 	

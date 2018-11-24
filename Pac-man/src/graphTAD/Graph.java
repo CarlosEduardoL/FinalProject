@@ -65,6 +65,10 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	public int getNumberOfNodes() {
 		return nodes.size();
 	}
+	
+	public Hashtable<K, Hashtable<K, Integer>> getAdjacencyArray(){
+		return adjacencyArray;
+	}
 
 	@Override
 	public void addNode(K key,V value) {
