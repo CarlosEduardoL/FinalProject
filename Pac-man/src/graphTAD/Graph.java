@@ -67,10 +67,14 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	public int getNumberOfNodes() {
 		return nodes.size();
 	}
+	
+	public Hashtable<K, Hashtable<K, Integer>> getAdjacencyArray(){
+		return adjacencyArray;
+	}
 
 	@Override
 	public void addNode(K key,V value) {
-		if (!nodes.contains(key)) {
+		if (!nodes.containsKey(key)) {
 			nodes.put(key, new Node<K, V>(key, value));
 		}
 		changedPaths = true;
@@ -155,18 +159,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	}
 
 	@Override
-	public void removeNode(K key) {
-		nodes.remove(key);
-		adjacencyArray.remove(key);
-		List<K> list = Collections.list(adjacencyArray.keys());
-		for (K keys : list) {
-			adjacencyArray.get(keys).remove(key);
-			removeEdge(keys, key);
-			removeEdge(key, keys);
-		}
-	}
-
-	@Override
 	public TheGraph<K, V> MST() {
 		TheGraph<K, V> minimun = new Graph<>(directed);
 		Collections.sort(edges);
@@ -201,9 +193,9 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 			K actual = queue.poll();
 			ArrayList<K> list = Collections.list(adjacencyArray.get(actual).keys());
 			for(int i = 0; i < list.size(); i++){
-				if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.contains(list.get(i))){
+				if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.containsKey(list.get(i))){
 					queue.add(list.get(i));
-					levels.put(list.get(i),levels.get(list.get(i)) + 1);
+					levels.put(list.get(i),levels.get(actual) + 1);
 				}
 			}
 		}
@@ -299,12 +291,16 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 					}
 				}
 			}
+<<<<<<< HEAD
 //			System.out.println("aun no termino");
+=======
+>>>>>>> 9dc201424ded1372dee6e0701dfeef852a0cf6a4
 		}
 		
 		minimumWeigths = weigthArray;
 		return paths;
 	}
+<<<<<<< HEAD
 	
 	public static void main(String[] args) {
 		Graph<Integer, Integer> g = new Graph<>(false);
@@ -334,5 +330,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	public void print () {
 		
 	}
+=======
+>>>>>>> 9dc201424ded1372dee6e0701dfeef852a0cf6a4
 
 }

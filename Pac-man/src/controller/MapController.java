@@ -46,7 +46,7 @@ public class MapController implements Initializable {
 		}
 		phanton.setLayoutY(game.getPhanton().getPosY());
 		phanton.setLayoutX(game.getPhanton().getPosX());
-		background.setLayoutX(background.getLayoutX());
+//		((Node) background).getScene().getWindow().sizeToScene();
 	}
 	
 	public void setGame(Game game) {
@@ -71,15 +71,6 @@ public class MapController implements Initializable {
 			game.movePhantom(x + 5, y);
 		}
 		print();
-	}
-	
-	public void move2(MouseEvent e) {
-		double x = e.getSceneX();
-		double y = e.getSceneY();
-		if (game.checkMove(x, y)) {
-			phanton.setLayoutX(x);
-			phanton.setLayoutY(y);
-		}
 	}
 	
 	public void test(MouseEvent e) {

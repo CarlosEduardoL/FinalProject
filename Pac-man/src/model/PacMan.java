@@ -20,16 +20,16 @@ public class PacMan {
 	public synchronized void move() {
 		if (queue.isEmpty()) {
 			inMove = false;
-		}else if (posX/25 == queue.peek().getX()/25 && posY/25 == queue.peek().getY()/25) {
+		}else if (posX == queue.peek().getX() && posY == queue.peek().getY()) {
 			lastPoint = queue.poll();
-		}else if (posX/25 != queue.peek().getX()/25){
-			if (posX/25 < queue.peek().getX()/25) {
+		}else if (posX != queue.peek().getX()){
+			if (posX < queue.peek().getX()) {
 				posX+=5;
 			}else {
 				posX -=5;
 			}
 		}else {
-			if (posY/25 < queue.peek().getY()/25) {
+			if (posY < queue.peek().getY()) {
 				posY+=5;
 			}else {
 				posY -=5;
