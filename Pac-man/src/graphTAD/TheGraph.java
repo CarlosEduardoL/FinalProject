@@ -65,10 +65,4 @@ public interface TheGraph<K extends Comparable<K>, V> {
 	 */
 	public void removeEdge(K from, K to);
 	
-	/**
-	 * 
-	 * @param key
-	 */
-	public void removeNode(K key);
-	
 }

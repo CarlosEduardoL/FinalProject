@@ -157,18 +157,6 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	}
 
 	@Override
-	public void removeNode(K key) {
-		nodes.remove(key);
-		adjacencyArray.remove(key);
-		List<K> list = Collections.list(adjacencyArray.keys());
-		for (K keys : list) {
-			adjacencyArray.get(keys).remove(key);
-			removeEdge(keys, key);
-			removeEdge(key, keys);
-		}
-	}
-
-	@Override
 	public TheGraph<K, V> MST() {
 		TheGraph<K, V> minimun = new Graph<>(directed);
 		Collections.sort(edges);
