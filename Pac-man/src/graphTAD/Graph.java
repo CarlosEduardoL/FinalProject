@@ -232,7 +232,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		List<K> keys = Collections.list(adjacencyArray.keys());
 		Hashtable<K, Integer> distance = new Hashtable<>(keys.size());
 		for(K key : keys) {
-			distance.put(key, Integer.MAX_VALUE);
+			distance.put(key, 999999);
 		}
 		distance.put(root, 0);
 
