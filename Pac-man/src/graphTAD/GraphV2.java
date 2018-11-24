@@ -259,6 +259,12 @@ public class GraphV2<T extends Comparable<T>, E extends Comparable<E>> implement
 			}
 		}
 	}
+	
+	
+	public static void main(String[] args) {
+		
+		GraphV2<Comparable<T>, Comparable<E>>
+	}
 
 	
 	

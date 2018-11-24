@@ -291,16 +291,11 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 					}
 				}
 			}
-<<<<<<< HEAD
-//			System.out.println("aun no termino");
-=======
->>>>>>> 9dc201424ded1372dee6e0701dfeef852a0cf6a4
 		}
 		
 		minimumWeigths = weigthArray;
 		return paths;
 	}
-<<<<<<< HEAD
 	
 	public static void main(String[] args) {
 		Graph<Integer, Integer> g = new Graph<>(false);
@@ -330,7 +325,5 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 	public void print () {
 		
 	}
-=======
->>>>>>> 9dc201424ded1372dee6e0701dfeef852a0cf6a4
 
 }

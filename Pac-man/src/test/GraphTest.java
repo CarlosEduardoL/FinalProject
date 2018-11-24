@@ -134,23 +134,6 @@ public class GraphTest {
 		
 		assertEquals(prueba, list);
 		
-<<<<<<< HEAD
-=======
-		graph.addEdge(10, 10, 11, 11, 45);
-		graph.addEdge(11, 11, 12, 12, 50);
-		graph.addEdge(10, 10, 12, 12, 150);
-
-		list = graph.shortesPath(1, 12);
-		
-		pruebaB.add(1);
-		pruebaB.add(2);
-		pruebaB.add(3);
-		pruebaB.add(10);
-		pruebaB.add(11);
-		pruebaB.add(12);
-
-		assertEquals(pruebaB, list);
->>>>>>> 9dc201424ded1372dee6e0701dfeef852a0cf6a4
 	}
 	
 	@Test
