@@ -32,8 +32,10 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	private Hashtable<K, Hashtable<K, List<V>>> paths;
 	private boolean changedPaths;
+	
+	private Hashtable<K, Hashtable<K, Integer>> minimumWeigths;
 
-
+	
 	//---------------------------//
 	//--------Constructor--------//
 	//---------------------------//
@@ -93,13 +95,13 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		if (adjacencyArray.get(key1) == null) {
 			adjacencyArray.put(key1, new Hashtable<K,Integer>());
 		}
-		Integer adjacents = adjacencyArray.get(key1).get(key2) != null? adjacencyArray.get(key1).get(key2) + 1 : 0;
+		Integer adjacents = adjacencyArray.get(key1).get(key2) != null? adjacencyArray.get(key1).get(key2) + 1 : 1;
 		adjacencyArray.get(key1).put(key2,  adjacents);
 		if (!directed) {
 			if (adjacencyArray.get(key2) == null) {
 				adjacencyArray.put(key2, new Hashtable<K,Integer>());
 			}
-			adjacents = adjacencyArray.get(key2).get(key1) != null? adjacencyArray.get(key2).get(key1) + 1 : 0;
+			adjacents = adjacencyArray.get(key2).get(key1) != null? adjacencyArray.get(key2).get(key1) + 1 : 1;
 			adjacencyArray.get(key2).put(key1,  adjacents);
 		}
 
@@ -126,7 +128,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		}
 		return paths.get(key1).get(key2);
 	}
-
+	
 	@Override
 	public int shortesPathWeight(K key1, K key2) {
 		paths = Floyd_Warshall();
@@ -232,7 +234,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		List<K> keys = Collections.list(adjacencyArray.keys());
 		Hashtable<K, Integer> distance = new Hashtable<>(keys.size());
 		for(K key : keys) {
-			distance.put(key, Integer.MAX_VALUE);
+			distance.put(key, 999999);
 		}
 		distance.put(root, 0);
 
@@ -246,7 +248,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 		return distance.get(objetive);
 	}
-
+	
 	private Hashtable<K, Hashtable<K, List<V>>> Floyd_Warshall(){
 
 		Hashtable<K, Hashtable<K, Integer>> weigthArray = new Hashtable<>(nodes.size());
@@ -297,12 +299,13 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 					}
 				}
 			}
-			System.out.println("aun no termino");
+//			System.out.println("aun no termino");
 		}
-
+		
+		minimumWeigths = weigthArray;
 		return paths;
 	}
-
+	
 	public static void main(String[] args) {
 		Graph<Integer, Integer> g = new Graph<>(false);
 		g.addEdge(13, 13, 8, 8, 5);
@@ -312,10 +315,24 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		g.addEdge(9, 9, 21, 21, 5);
 		g.addEdge(5, 5, 21, 21, 1);
 		g.MST();
+		
 		List<Integer> list = g.shortesPath(13, 21);
-		for(Integer i: list) {
-			System.out.println(i);
+		int p =g.shortesPathWeight(8, 9);
+		
+		
+		List<Integer> tempList = Collections.list(g.Floyd_Warshall().keys());
+		
+		for (Integer i : tempList) {
+			for(Integer j: tempList) {
+				System.out.print(g.minimumWeigths.get(i).get(j) +" " );
+			}
+			System.out.println();
 		}
+		
+	}
+	
+	public void print () {
+		
 	}
 
 }

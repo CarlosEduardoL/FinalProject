@@ -262,42 +262,6 @@ public class GraphV2<T extends Comparable<T>, E extends Comparable<E>> implement
 
 	
 	
-//    public GraphV2<T,E> arbolExpMinPrim(GraphV2<T,E> g, T inicio) {
-//        // Obtengo la cantidad total de vértices
-//        int verticesTotales = g.getVertices().size();
-//        NodeV2<?> vOrigen = verts.get(g.getListPosition(inicio));
-//        if (vOrigen != null) {
-//            GraphV2<T,E> gNuevo = new GraphV2<T,E>();
-//            g.getVertices().stream().forEach((v) -> {
-//                gNuevo.addNode(v.getValue());
-//            });
-//            
-//            // Para esta implementación, los pesos son números enteros.
-//            PriorityQueue<EdgeV2<?>> cola = new PriorityQueue<>((EdgeV2<?> a1, EdgeV2<?> a2) -> Double.compare(a1.getCost(), a2.getCost()));
-//
-//            int cont = 0;
-//            
-//            while (cont < verticesTotales) {
-//                for (Iterator<EdgeV2<?>> it = vOrigen.getEdges().iterator(); it.hasNext();) {
-//                    EdgeV2<?> arc = it.next();
-//                    if (!arc.getDestination().isVisitado()) {
-//                        cola.offer(arc);
-//                    }
-//                }
-//                
-//                EdgeV2<?> arco = cola.poll();
-//                if (!arco.getDestination().isVisitado()) {
-//                    arco.getDestination().setVisitado(true);
-//                    gNuevo.agregarArco(arco.getPrevio().getContenido(), arco.getDestination().getContenido(), arco.getPeso());
-//                    cont ++;
-//                    vOrigen = arco.getDestination();
-//                }
-//            }
-//            return gNuevo;
-//            
-//        }
-//        return null;
-//    }
 	
     
 }
