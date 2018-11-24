@@ -68,7 +68,7 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 
 	@Override
 	public void addNode(K key,V value) {
-		if (!nodes.contains(key)) {
+		if (!nodes.containsKey(key)) {
 			nodes.put(key, new Node<K, V>(key, value));
 		}
 		changedPaths = true;
@@ -93,13 +93,13 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		if (adjacencyArray.get(key1) == null) {
 			adjacencyArray.put(key1, new Hashtable<K,Integer>());
 		}
-		Integer adjacents = adjacencyArray.get(key1).get(key2) != null? adjacencyArray.get(key1).get(key2) + 1 : 0;
+		Integer adjacents = adjacencyArray.get(key1).get(key2) != null? adjacencyArray.get(key1).get(key2) + 1 : 1;
 		adjacencyArray.get(key1).put(key2,  adjacents);
 		if (!directed) {
 			if (adjacencyArray.get(key2) == null) {
 				adjacencyArray.put(key2, new Hashtable<K,Integer>());
 			}
-			adjacents = adjacencyArray.get(key2).get(key1) != null? adjacencyArray.get(key2).get(key1) + 1 : 0;
+			adjacents = adjacencyArray.get(key2).get(key1) != null? adjacencyArray.get(key2).get(key1) + 1 : 1;
 			adjacencyArray.get(key2).put(key1,  adjacents);
 		}
 
@@ -199,9 +199,9 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 			K actual = queue.poll();
 			ArrayList<K> list = Collections.list(adjacencyArray.get(actual).keys());
 			for(int i = 0; i < list.size(); i++){
-				if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.contains(list.get(i))){
+				if(adjacencyArray.get(actual).get(list.get(i)) != 0 && !levels.containsKey(list.get(i))){
 					queue.add(list.get(i));
-					levels.put(list.get(i),levels.get(list.get(i)) + 1);
+					levels.put(list.get(i),levels.get(actual) + 1);
 				}
 			}
 		}
@@ -297,25 +297,9 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 					}
 				}
 			}
-			System.out.println("aun no termino");
 		}
 
 		return paths;
-	}
-
-	public static void main(String[] args) {
-		Graph<Integer, Integer> g = new Graph<>(false);
-		g.addEdge(13, 13, 8, 8, 5);
-		g.addEdge(13, 13, 5, 5, 4);
-		g.addEdge(13, 13, 21, 21, 2);
-		g.addEdge(9, 9, 8, 8, 6);
-		g.addEdge(9, 9, 21, 21, 5);
-		g.addEdge(5, 5, 21, 21, 1);
-		g.MST();
-		List<Integer> list = g.shortesPath(13, 21);
-		for(Integer i: list) {
-			System.out.println(i);
-		}
 	}
 
 }

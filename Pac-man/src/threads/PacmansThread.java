@@ -16,10 +16,10 @@ public class PacmansThread extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-			game.movePacmans();
-			controller.print();
 			try {
 				sleep(120);
+				game.movePacmans();
+				controller.print();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

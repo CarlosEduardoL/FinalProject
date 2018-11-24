@@ -89,7 +89,7 @@ public class Game {
 						p2.setIdentificador((i) +""+(j-BLOCK_SIZE));
 						graph.addEdge(p2.getIdentificador(), p2, point.getIdentificador(), point);
 					}
-					if (i%2==0 && j%3==0) {
+					if (i%2==0 && j%3==0 && i!=0 && j !=0) {
 						boolean parar =false;
 						for (int k = 0; k < pacMans.length && !parar; k++) {
 							if (pacMans[k] == null) {
@@ -115,7 +115,16 @@ public class Game {
 			}
 		}
 		
-		graph.shortesPathWeight("", "");
+		if (graph.isConnected()) {
+			graph.shortesPathWeight("", "");
+		}else {
+			System.out.println("Pase");
+			phanton = null;
+			for (int j = 0; j < pacMans.length; j++) {
+				pacMans[j]=null;
+			}
+			return makeMap();
+		}
 		return image;
 	}
 
