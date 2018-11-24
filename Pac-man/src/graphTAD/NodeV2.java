@@ -10,6 +10,8 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 	private ArrayList<EdgeV2<?>> edges;
 	private double minimumEdgeCost;
 	private LinkedList<NodeV2<?>> predecessors;
+	//Position in vert array from graph
+	private int key;
 	
 	
 	public NodeV2(T value) {
@@ -84,6 +86,14 @@ public class NodeV2<T extends Comparable<T>> implements Comparable<NodeV2<T>> {
 
 	public void setPredecessors(LinkedList<NodeV2<?>> predecessors) {
 		this.predecessors = predecessors;
+	}
+
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
 	}
 	
 	
