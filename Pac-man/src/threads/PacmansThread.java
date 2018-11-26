@@ -15,9 +15,9 @@ public class PacmansThread extends Thread {
 	
 	@Override
 	public void run() {
-		while (true) {
+		while (game.isInGame()) {
 			try {
-				sleep(120);
+				sleep(120 - 2*game.getPhanton().level());
 				game.movePacmans();
 				controller.print();
 			} catch (InterruptedException e) {

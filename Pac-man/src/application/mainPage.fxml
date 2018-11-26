@@ -52,7 +52,7 @@
             <Image url="@../../data/pacman_sprite_U4.gif" />
          </image>
       </ImageView>
-      <Button layoutX="160.0" layoutY="432.0" mnemonicParsing="false" style="-fx-background-color: 000000;">
+      <Button layoutX="160.0" layoutY="432.0" mnemonicParsing="false" onAction="#launcScore" style="-fx-background-color: 000000;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>

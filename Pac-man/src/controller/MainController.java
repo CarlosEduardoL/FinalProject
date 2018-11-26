@@ -42,5 +42,9 @@ public class MainController implements Initializable {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void launcScore(ActionEvent e) {
+		game.printScore();
+	}
 
 }

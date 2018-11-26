@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+import model.Game;
+
 /**
  * 
  * @author Carlos Eduardo Lizalda Valencia
@@ -46,6 +48,17 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		nodes = new Hashtable<>();
 		edges = new ArrayList<>();
 		this.directed = directed;
+	}
+	
+	public void printAdjacencyArray() {
+		List<K> ks = Collections.list(nodes.keys());
+		for(K k1 : ks) {
+			for (K k2 : ks) {
+				System.out.print(adjacencyArray.get(k1).get(k2) + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
 	}
 
 	public Graph(boolean directed, int numberOfNodes) {
@@ -296,34 +309,14 @@ public class Graph<K extends Comparable<K>, V> implements TheGraph<K, V>{
 		minimumWeigths = weigthArray;
 		return paths;
 	}
-	
-	public static void main(String[] args) {
-		Graph<Integer, Integer> g = new Graph<>(false);
-		g.addEdge(13, 13, 8, 8, 5);
-		g.addEdge(13, 13, 5, 5, 4);
-		g.addEdge(13, 13, 21, 21, 2);
-		g.addEdge(9, 9, 8, 8, 6);
-		g.addEdge(9, 9, 21, 21, 5);
-		g.addEdge(5, 5, 21, 21, 1);
-		g.MST();
 		
-		List<Integer> list = g.shortesPath(13, 21);
-		int p =g.shortesPathWeight(8, 9);
-		
-		
-		List<Integer> tempList = Collections.list(g.Floyd_Warshall().keys());
-		
-		for (Integer i : tempList) {
-			for(Integer j: tempList) {
-				System.out.print(g.minimumWeigths.get(i).get(j) +" " );
-			}
-			System.out.println();
+	public List<Edge<K>> print() {
+		List<K> list = Collections.list(nodes.keys());
+		List<V> nodo = new ArrayList<>();
+		for (K i : list) {
+			nodo.add(nodes.get(i).getValue());
 		}
-		
-	}
-	
-	public void print () {
-		
+		return edges;
 	}
 
 }

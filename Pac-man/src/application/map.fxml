@@ -25,17 +25,17 @@
          </image>
       </ImageView>
       <Button layoutX="239.0" layoutY="504.0" mnemonicParsing="false" onKeyPressed="#move" opacity="0.0" text="Button" />
-      <Label layoutX="14.0" layoutY="538.0" text="Lifes:" textFill="WHITE">
+      <Label fx:id="lifes" layoutX="14.0" layoutY="538.0" text="Lifes:" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="177.0" layoutY="539.0" text="Level:" textFill="WHITE">
+      <Label fx:id="level" layoutX="177.0" layoutY="539.0" text="Level:" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="332.0" layoutY="539.0" text="Name:" textFill="WHITE">
+      <Label fx:id="score" layoutX="332.0" layoutY="539.0" text="score:" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
