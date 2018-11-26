@@ -43,6 +43,20 @@ public class SuperController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+	public void launchRanking(Stage primaryStage) throws IOException {
+		game.setInGame(true);
+		game.makeImage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/ranking.fxml"));
+		Parent root = loader.load();
+		RankingController map = loader.getController();
+		map.setController(this);
+		map.setGame(game);
+		Scene scene = new Scene(root,Game.SCREEN_WEIGHT,Game.SCREEN_WEIGHT);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 
 	public void launchDifficulty(Stage primaryStage) {
 

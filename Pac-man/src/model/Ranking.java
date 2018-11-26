@@ -82,7 +82,7 @@ public class Ranking {
 			scores.add (new Score(name, Score));
 			Collections.sort(scores);
 			String toSave ="";
-			int hasta = scores.size() < 11? scores.size():11;
+			int hasta = scores.size() < 10? scores.size():10;
 			for (int i = 0; i < hasta; i++) {
 				toSave += scores.get(i).getName() + " " + scores.get(i).getScore() + "leon";
 			}

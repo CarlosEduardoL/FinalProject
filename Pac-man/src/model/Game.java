@@ -35,11 +35,9 @@ public class Game {
 		return phanton;
 	}
 	
-	public void printScore() {
+	public List<Score> printScore() {
 		List<Score> s = rank.getScores();
-		for (Score score : s) {
-			System.out.println(score.getName() + " " + score.getScore());
-		}
+		return s;
 	}
 
 	public void movePacmans() {

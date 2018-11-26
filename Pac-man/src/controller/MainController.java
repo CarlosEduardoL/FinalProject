@@ -44,7 +44,12 @@ public class MainController implements Initializable {
 	}
 	
 	public void launcScore(ActionEvent e) {
-		game.printScore();
+		try {
+			controller.launchRanking((Stage) ((Node) boton).getScene().getWindow());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }
