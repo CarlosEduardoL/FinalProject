@@ -29,8 +29,7 @@ class GraphV2Test {
 		graph.addEdge(2, 2, 4, 4);
 		graph.addEdge(3, 3, 0, 0);
 		
-		List<Integer> list = Collections.list(graph.getAdjacencyList().keys())
-				;
+		List<Integer> list = Collections.list(graph.getAdjacencyList().keys());
 		for (Integer i : list) {
 			System.out.println("Key: " + i+ " value: " + graph.getNodes().get(i).getValue());
 			for (int j = 0; j < graph.getAdjacencyList().get(i).size(); j++) {
